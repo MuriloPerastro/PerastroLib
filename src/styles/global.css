@@ -1,0 +1,21 @@
+:root {
+    --background: #080E16;
+    --primary: #2563eb;
+    --success: #10b981;
+    --surface: #111a29;
+    --text: #f8fafc;
+    --text-secondary: #8995a8;
+    --border: #202c3e;
+
+}
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Lora', serif;
+}
