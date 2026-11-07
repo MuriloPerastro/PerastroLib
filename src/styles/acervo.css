@@ -1,0 +1,139 @@
+.acervo{
+    padding: 40px 5%;
+    min-height: calc(100vh - 76px);
+}
+.acervo h1{
+    color: #f8fafc;
+    font-size: 28px;
+    font-weight: 700;
+}
+.acervo p{
+    margin-top: 8px;
+    color: #8995a8;
+    font-size: 14px;
+}
+
+/* PAINEL DE INFORMAÇÕES */
+
+.acervo-info{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+
+    margin-top: 32px;
+}
+
+.info-card{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 24px;
+
+    background-color: #111a29;
+    border: 1px solid #202c3e;
+    border-radius: 12px;
+}
+
+.info-label{
+    color:#8995a8;
+    font-size: 14px;
+}
+
+.info-number{
+    color:#f8fafc;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.info-description{
+    color:#8995a8;
+    font-size: 12px;
+}
+
+
+@media (max-width: 768px) {
+    .acervo-info {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ÁREA DE PESQUISA E FILTROS */
+
+.acervo-filtros {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    margin-top: 40px;
+}
+
+/* CAMPO DE PESQUISA */
+
+.pesquisa {
+    flex: 1;
+}
+
+.pesquisa input {
+    width: 100%;
+    padding: 13px 16px;
+
+    background-color: #111a29;
+    border: 1px solid #202c3e;
+    border-radius: 8px;
+
+    color: #f8fafc;
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+    transition: 0.2s;
+}
+
+.pesquisa input::placeholder {
+    color: #8995a8;
+}
+
+.pesquisa input:focus {
+    border-color: #2563eb;
+}
+
+/* BOTÕES DE CATEGORIA */
+
+.categorias {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.categoria {
+    padding: 11px 15px;
+
+    background-color: #111a29;
+    border: 1px solid #202c3e;
+    border-radius: 8px;
+
+    color: #8995a8;
+    font-family: inherit;
+    font-size: 13px;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.categoria:hover {
+    color: #f8fafc;
+    border-color: #2563eb;
+}
+
+.categoria.active {
+    background-color: #2563eb;
+    border-color: #2563eb;
+    color: #ffffff;
+}
+
+.categoria.active:hover{
+    background-color: #1d4ed8;
+}

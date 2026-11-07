@@ -1,9 +1,13 @@
 import Navbar from './components/Navbar'
+import Acervo from './pages/Acervo'
+
 function App() {
     return (
         <div>
-          <Navbar/> 
-            <h1>PerastroLib</h1>
+            <Navbar />
+            <Acervo />
+
+            <h1>PerastroLib está funcionando!</h1>
         </div>
     )
 }

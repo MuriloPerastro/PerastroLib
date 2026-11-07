@@ -22,8 +22,10 @@
     font-weight: 700;
 }
 
-.navbar-logo svg{
-    color: #2563eb;
+.navbar-links{
+    display: flex;
+    align-items: center;
+    gap:8px;
 }
 
 .navbar-links a{
@@ -43,7 +45,7 @@
 
 }
 
-.navbar.navbar-links a:active{
+.navbar-links a.active{
     color:#f8fafc;
     background-color: #202c3e;
 }
