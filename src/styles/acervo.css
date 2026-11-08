@@ -161,3 +161,9 @@
     }
 }
     
+.nenhum-livro{
+    color: #8995a8;
+    padding: 30px 0;
+    text-align: center;
+    grid-column: 1 / -1;
+}

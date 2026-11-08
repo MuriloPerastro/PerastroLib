@@ -44,11 +44,11 @@ function Navbar(){
                             Nova Pessoa
                         </button>
 
-                        <button onClick={() => abrirCadastro('Pessoa')}>
+                        <button onClick={() => abrirCadastro('Categoria')}>
                             Nova Categoria
                         </button>
 
-                        <button onClick={() => abrirCadastro('Pessoa')}>
+                        <button onClick={() => abrirCadastro('Livro')}>
                             Novo Livro
                         </button>
 
@@ -63,23 +63,25 @@ function Navbar(){
                             <h2>Novo Cadastro: {cadastroSelecionado}
 
                             </h2>
-                            <button className='modal-fechar' onClick={fecharCadastro}>
 
+                            <button type='button' className='modal-fechar' onClick={fecharCadastro}>
+                                ×
                             </button>
+
                         </div>
                         {cadastroSelecionado === 'Pessoa' && (
                             <form>
-                                <label>Nome Completo</label>
-                                <input type='text' placeholder='Digite o nome'/>
+                                <label htmlFor='nomeCompleto'>Nome Completo</label>
+                                <input id='nomeCompleto' type='text' placeholder='Digite o nome'/>
 
-                                <label>Matrícula</label>
-                                <input type='text'placeholder='Digite a matrícula'/>
+                                <label htmlFor="Matricula">Matrícula</label>
+                                <input id='Matricula' type='text'placeholder='Digite a matrícula'/>
 
-                                <label htmlFor="Turma"></label>
-                                <input type="text" placeholder='Ex.: 2º ano A' />
+                                <label htmlFor="turma">Turma</label>
+                                <input  type="text" id='turma' placeholder='Ex.: 2º ano A'/>
 
-                                <label >Contato</label>
-                                <input type='text' placeholder='Telefone ou e-mail'/>
+                                <label htmlFor='Contato' >Contato</label>
+                                <input id='Contato' type='text' placeholder='Telefone ou e-mail'/>
 
                                 <button type='button' className='modal-salvar'>
                                     Salvar Pessoa

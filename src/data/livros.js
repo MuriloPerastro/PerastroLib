@@ -6,7 +6,7 @@ const livros = [
         autor: 'Antoine de Saint-Exupéry',
         categoria: 'Infantojuvenil',
         disponibilidade: 'Disponível',
-        capa: ''
+        capa: 'public/assets/capas/pequeno-principe.jpg'
     },
 
     {
@@ -15,7 +15,7 @@ const livros = [
         autor: 'J. K. Rowling',
         categoria: 'Fantasia',
         disponibilidade: 'Disponível',
-        capa: ''
+        capa: 'public/assets/capas/harry-potter.jpg'
     },
 
     {
@@ -24,7 +24,7 @@ const livros = [
         autor: 'Machado de Assis',
         categoria: 'Romance',
         disponibilidade: 'Emprestado',
-        capa: ''
+        capa: 'public/assets/capas/dom-casmurro.jpg'
     },
 
     {
@@ -33,7 +33,7 @@ const livros = [
         autor: 'C. S. Lewis',
         categoria: 'Aventura',
         disponibilidade: 'Disponível',
-        capa: ''
+        capa: 'public/assets/capas/cronicas-narnia.jpg'
     }
 ]
 

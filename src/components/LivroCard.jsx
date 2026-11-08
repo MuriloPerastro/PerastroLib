@@ -17,7 +17,7 @@ function LivroCard({ livro }){
                 <p> {livro.autor} </p>
 
                 <span className={`livro-status ${
-                    livro.disponibilidade === 'Disponivel'
+                    livro.disponibilidade === 'Disponível'
                     ? 'disponivel'
                     : 'emprestado'
                 }`}>
