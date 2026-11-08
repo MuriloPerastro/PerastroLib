@@ -137,3 +137,27 @@
 .categoria.active:hover{
     background-color: #1d4ed8;
 }
+
+
+/* GRADE DOS LIVROS */
+
+.livros-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    margin-top: 28px;
+}
+
+@media (max-width: 1000px) {
+    .livros-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 550px) {
+    .livros-grid {
+        grid-template-columns: 1fr;
+    }
+}
+    

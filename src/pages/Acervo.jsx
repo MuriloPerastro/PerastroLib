@@ -1,4 +1,6 @@
 import '../styles/acervo.css'
+import livros from '../data/livros'
+import LivroCard from '../components/LivroCard'
 function Acervo(){
     return(
         <main className="acervo">
@@ -72,6 +74,12 @@ function Acervo(){
                         Aventura
                     </button>
                 </div>
+            </section>
+
+            <section className='livros-grid'>
+                {livros.map((livro) => (
+                    <LivroCard key={livro.id} livro={livro}/>
+                ))}
             </section>
         </main>
     )

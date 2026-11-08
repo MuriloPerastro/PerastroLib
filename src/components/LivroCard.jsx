@@ -1,0 +1,30 @@
+
+import '../styles/livroCard.css'
+
+function LivroCard({ livro }){
+    return(
+        <article className='livro-card'>
+            <div className='livro-capa'>
+                {livro.capa ?(
+                    <img src={livro.capa} alt={livro.titulo}/>
+            ):(
+                    <span>Sem capa</span>
+            )}
+            </div>
+            <div className='livro-informacoes'>
+                <h3> {livro.titulo} </h3>
+
+                <p> {livro.autor} </p>
+
+                <span className={`livro-status ${
+                    livro.disponibilidade === 'Disponivel'
+                    ? 'disponivel'
+                    : 'emprestado'
+                }`}>
+                    {livro.disponibilidade}
+                </span>
+            </div>
+        </article>
+    )
+}
+export default LivroCard

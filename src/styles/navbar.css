@@ -22,6 +22,12 @@
     font-weight: 700;
 }
 
+.navbar-logo img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+}
+
 .navbar-links{
     display: flex;
     align-items: center;
@@ -66,5 +72,179 @@
 }
 
 .navbar-button:hover{
+    background-color: #1d4ed8;
+}
+
+/* MENU DE CADASTRO */
+
+.cadastro-container {
+    position: relative;
+}
+
+.cadastro-container .navbar-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cadastro-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 210px;
+    padding: 8px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    background-color: #111a29;
+    border: 1px solid #202c3e;
+    border-radius: 10px;
+
+    z-index: 20;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.cadastro-menu button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    width: 100%;
+    padding: 12px;
+
+    background: transparent;
+    border: none;
+    border-radius: 7px;
+
+    color: #f8fafc;
+    font-family: inherit;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.cadastro-menu button:hover {
+    background-color: #202c3e;
+}
+
+.cadastro-menu button span {
+    color: #60a5fa;
+    font-size: 18px;
+}
+
+/* FUNDO DA JANELA */
+.modal-fundo {
+    position: fixed !important;
+
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+
+    z-index: 99999;
+
+    animation: aparecerFundo 0.25s ease;
+}
+
+/* JANELA DE CADASTRO */
+
+.modal-cadastro {
+    width: 100%;
+    max-width: 480px;
+    max-height: 85vh;
+    overflow-y: auto;
+
+    padding: 25px;
+
+    background-color: #111a29;
+    border: 1px solid #202c3e;
+    border-radius: 14px;
+}
+
+.modal-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.modal-cabecalho h2 {
+    color: #f8fafc;
+    font-size: 20px;
+}
+
+.modal-fechar {
+    background: transparent;
+    border: none;
+    color: #8995a8;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.modal-cadastro form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-cadastro label {
+    color: #cbd5e1;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.modal-cadastro input,
+.modal-cadastro textarea {
+    width: 100%;
+    padding: 12px;
+
+    background-color: #0a0f18;
+    border: 1px solid #202c3e;
+    border-radius: 8px;
+
+    color: #f8fafc;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.modal-cadastro textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.modal-cadastro input:focus,
+.modal-cadastro textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.modal-salvar {
+    margin-top: 18px;
+    padding: 13px;
+
+    background-color: #2563eb;
+    border: none;
+    border-radius: 8px;
+
+    color: white;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.modal-salvar:hover {
     background-color: #1d4ed8;
 }
