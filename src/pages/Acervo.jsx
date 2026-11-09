@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import '../styles/acervo.css'
-import livros from '../data/livros'
+import { useBiblioteca } from '../context/BibliotecaContext'
 import LivroCard from '../components/LivroCard'
 function Acervo(){
+    const { livros } = useBiblioteca()
 
     const [pesquisa, setPesquisa] = useState('')
     const [categoriaSelecionada, setCategoriaSelecionada] = useState('Todos')
     
     const livrosFiltrados = livros.filter((livro)=> {
-        const correspondePesquisa = 
-        livro.titulo.toLocaleLowerCase().includes(pesquisa.toLocaleLowerCase()) || livro.autor.toLocaleLowerCase().includes(pesquisa.toLocaleLowerCase())
+        const correspondePesquisa =
+        livro.titulo.toLowerCase().includes(pesquisa.toLowerCase()) ||
+        livro.autor.toLowerCase().includes(pesquisa.toLowerCase())
 
         const correspondeCategoria = categoriaSelecionada === 'Todos' || livro.categoria === categoriaSelecionada
 
@@ -18,11 +20,11 @@ function Acervo(){
     
     const totalLivros = livros.length
 
-    const livrosDisponiceis =livros.filter(
+    const livrosDisponiveis =livros.filter(
         (livro) => livro.disponibilidade === 'Disponível').length
 
         const livrosEmprestados = livros.filter(
-            (livro) => livro.disponibilidade =='Emprestado').length
+            (livro) => livro.disponibilidade === 'Emprestado').length
     
 
     return(
@@ -52,7 +54,7 @@ function Acervo(){
                         Disponíveis
                     </span>
                     <strong className='info-number'>
-                        {livrosDisponiceis}
+                        {livrosDisponiveis}
                     </strong>
                     <span className='info-description'>
                         Livros disponíveis para empréstimo

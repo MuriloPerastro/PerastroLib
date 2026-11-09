@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import '../styles/livros.css'
-import livros from '../data/livros'
+import { useBiblioteca } from '../context/BibliotecaContext'
 import LivroCard from '../components/LivroCard'
 
 function Livros(){
-
+    const { livros } = useBiblioteca()
     const [pesquisa, setPesquisa] = useState('')
     const [categoriaSelecionada, setCategoriaSelecionada] = useState('Todas')
     const [statusSelecionado, setStatusSelecionado] = useState('Todos')

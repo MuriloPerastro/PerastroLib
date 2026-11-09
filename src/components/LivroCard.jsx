@@ -1,9 +1,10 @@
-
+import {Link} from 'react-router'
 import '../styles/livroCard.css'
 
-function LivroCard({ livro }){
+function LivroCard({ livro}){
     return(
-        <article className='livro-card'>
+        <Link to={`/livros/${livro.id}`} className="livro-card-link">
+            <article className='livro-card'>
             <div className='livro-capa'>
                 {livro.capa ?(
                     <img src={livro.capa} alt={livro.titulo}/>
@@ -24,7 +25,8 @@ function LivroCard({ livro }){
                     {livro.disponibilidade}
                 </span>
             </div>
-        </article>
+            </article>
+    </Link>
     )
 }
 export default LivroCard

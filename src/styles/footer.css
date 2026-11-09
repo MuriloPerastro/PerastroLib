@@ -1,0 +1,102 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+
+    width: 100%;
+    
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 40px;
+    gap: 8px;
+    padding: 3px 1%;
+
+    background-color: #0d1421;
+    border-top: 1px solid #202c3e;
+}
+
+/* DESENVOLVEDOR */
+
+.footer-desenvolvedor {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.footer-desenvolvedor img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #2563eb;
+}
+
+.footer-creditos {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.footer-creditos strong {
+    color: #f8fafc;
+    font-size: 10px;
+}
+
+.footer-creditos span {
+    color: #8995a8;
+    font-size: 9px;
+}
+
+/* CRÉDITOS DO PROJETO */
+
+.footer-mensagem {
+    color: #8995a8;
+    font-size: 11px;
+    text-align: center;
+}
+
+.footer-mensagem strong {
+    color: #cbd5e1;
+}
+
+/* REDES SOCIAIS */
+
+.footer-redes {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.footer-redes a {
+    color: #8995a8;
+    font-size: 12px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.footer-redes a:hover {
+    color: #60a5fa;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 850px) {
+    .footer {
+        position: static;
+        flex-direction: column;
+        text-align: center;
+        padding: 18px 5%;
+    }
+
+    .footer-desenvolvedor {
+        justify-content: center;
+    }
+
+    .footer-redes {
+        justify-content: center;
+    }
+}
