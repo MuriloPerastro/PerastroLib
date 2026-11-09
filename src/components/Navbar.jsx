@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router'
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import '../styles/navbar.css'
@@ -17,18 +18,34 @@ function Navbar(){
 
     return (
         <header className="navbar">
-            <a href="#inicio" className="navbar-logo">
+            <NavLink  to="/" className="navbar-logo">
                 <img 
                     src="/assets/perastrolib-icon.png"
                     alt='Ícone PerastroLib'   
                 />
                 <span>PerastroLib</span>
-            </a>
+            </NavLink>
+            
             <nav className="navbar-links">
-                <a href="#inicio" className="active">Início</a>
-                <a href="#Livros">Livros</a>
-                <a href="#pessoas">Pessoas</a>
-                <a href="#registros">Registros</a>
+
+                <nav className="navbar-links">
+                    <NavLink to="/" end>
+                        Início
+                    </NavLink>
+
+                    <NavLink to="/livros">
+                        Livros
+                    </NavLink>
+
+                    <NavLink to="/pessoas">
+                        Pessoas
+                    </NavLink>
+
+                    <NavLink to="/registros">
+                        Registros
+                    </NavLink>
+                </nav>
+
             </nav>
 
             <div className="cadastro-container">

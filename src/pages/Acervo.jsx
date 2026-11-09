@@ -16,6 +16,13 @@ function Acervo(){
         return correspondePesquisa && correspondeCategoria
     })
     
+    const totalLivros = livros.length
+
+    const livrosDisponiceis =livros.filter(
+        (livro) => livro.disponibilidade === 'Disponível').length
+
+        const livrosEmprestados = livros.filter(
+            (livro) => livro.disponibilidade =='Emprestado').length
     
 
     return(
@@ -33,7 +40,7 @@ function Acervo(){
                         Total de livros
                     </span>
                     <strong className='info-number'>
-                        6969
+                        {totalLivros}
                     </strong>
                     <span className='info-description'>
                         Livros Cadastrados
@@ -45,7 +52,7 @@ function Acervo(){
                         Disponíveis
                     </span>
                     <strong className='info-number'>
-                        67
+                        {livrosDisponiceis}
                     </strong>
                     <span className='info-description'>
                         Livros disponíveis para empréstimo
@@ -57,7 +64,7 @@ function Acervo(){
                         Emprestados
                     </span>
                     <strong className='info-number'>
-                        101
+                        {livrosEmprestados}
                     </strong>
                     <span className='info-description'>
                         Livros com leitores

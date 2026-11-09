@@ -1,0 +1,44 @@
+.pagina-geral{
+    padding: 40px 5%;
+    min-height: calc(100vh - 76px);
+}
+
+.pagina-geral h1{
+    color: #f8fafc;
+    font-size: 28px;
+}
+
+.pagina-geral > p{
+    margin-top: 8px;
+    color: #8995a8;
+    font-size: 14px;
+}
+
+.pagina-vazia{
+    margin-top: 35px;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 12px;
+    padding: 25px;
+    background-color: #111a29;
+    border: 1px solid #202c3e;
+    border-radius: 12px;
+}
+
+.pagina-vazia span{
+    font-size: 40px;
+}
+
+.pagina-vazia h2{
+    color: #f8fafc;
+    font-size: 20px;
+}
+
+.pagina-vazia p{
+    color: #8995a8;
+    font-size: 14px;
+}
