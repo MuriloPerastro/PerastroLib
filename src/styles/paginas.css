@@ -487,3 +487,228 @@
         align-items: flex-start;
     }
 }
+/* Ações dos cards de pessoas */
+.pessoa-acoes {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.pessoa-acoes button {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #263449;
+    border-radius: 8px;
+
+    background: #111c2c;
+    font-size: 20px;
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.pessoa-editar {
+    color: #60a5fa;
+}
+
+.pessoa-editar:hover {
+    background: #1e3a5f;
+    border-color: #2563eb;
+}
+
+.pessoa-excluir {
+    color: #f87171;
+}
+
+.pessoa-excluir:hover {
+    background: #451f29;
+    border-color: #ef4444;
+}
+
+/* Ajuste para telas pequenas */
+@media (max-width: 650px) {
+    .pessoa-card {
+        flex-wrap: wrap;
+    }
+
+    .pessoa-acoes {
+        margin-left: auto;
+    }
+}
+
+.registro-devolver {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: 1px solid #10b981;
+    border-radius: 8px;
+    background: rgba(16, 185, 129, 0.12);
+    color: #10b981;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.registro-devolver:hover {
+    background: #10b981;
+    color: #ffffff;
+}
+
+/* =================================
+   ABAS DE REGISTROS
+================================= */
+
+.registros-abas {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+.registros-abas button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 20px;
+
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    font-family: var(--font-main);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.registros-abas button:hover {
+    color: var(--text);
+    background: var(--surface);
+}
+
+.registros-abas button.active {
+    color: var(--text);
+    background: var(--surface);
+    border-color: var(--primary);
+}
+
+.registros-abas button span {
+    font-size: 18px;
+}
+
+/* =================================
+   EXCLUSÃO DE REGISTROS
+================================= */
+
+.registro-excluir {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 14px;
+
+    color: var(--danger);
+    background: transparent;
+    border: 1px solid var(--danger);
+    border-radius: 8px;
+
+    font-family: var(--font-main);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.registro-excluir:hover {
+    color: white;
+    background: var(--danger);
+}
+
+.registro-excluir span {
+    font-size: 19px;
+    line-height: 1;
+}
+
+/* =================================
+   DASHBOARD PROVISÓRIO
+================================= */
+
+.dashboard-em-construcao {
+    min-height: 350px;
+    margin-top: 20px;
+    padding: 40px 25px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.dashboard-em-construcao-icone {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--surface-hover);
+    border-radius: 18px;
+    font-size: 32px;
+}
+
+.dashboard-em-construcao h2 {
+    color: var(--text);
+    font-size: 22px;
+}
+
+.dashboard-em-construcao p {
+    max-width: 500px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.dashboard-em-construcao > span {
+    color: var(--primary);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* =================================
+RESPONSIVIDADE
+================================= */
+
+@media (max-width: 650px) {
+    .registros-abas {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .registros-abas button {
+        padding: 11px 8px;
+        font-size: 12px;
+    }
+
+    .registro-excluir {
+        width: 100%;
+    }
+}

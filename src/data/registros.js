@@ -1,38 +1,38 @@
 const registros = [
     {
         id: 1,
-        livro: 'O Pequeno Príncipe',
-        pessoa: 'Ana Beatriz Silva',
-        matricula: '2026001',
-        dataEmprestimo: '05/11/2026',
-        dataDevolucao: '12/11/2026',
+        livroId: 1,
+        pessoaId: 1,
+        dataEmprestimo: '2026-11-05',
+        dataPrevistaDevolucao: '2026-11-12',
+        dataDevolucaoReal: null,
         status: 'Em andamento'
     },
     {
         id: 2,
-        livro: 'Harry Potter e a Pedra Filosofal',
-        pessoa: 'Carlos Henrique Souza',
-        matricula: '2026002',
-        dataEmprestimo: '01/11/2026',
-        dataDevolucao: '06/11/2026',
+        livroId: 2,
+        pessoaId: 2,
+        dataEmprestimo: '2026-11-01',
+        dataPrevistaDevolucao: '2026-11-06',
+        dataDevolucaoReal: null,
         status: 'Atrasado'
     },
     {
         id: 3,
-        livro: 'Dom Casmurro',
-        pessoa: 'Mariana Oliveira',
-        matricula: 'PROF001',
-        dataEmprestimo: '20/10/2026',
-        dataDevolucao: '27/10/2026',
+        livroId: 3,
+        pessoaId: 3,
+        dataEmprestimo: '2026-10-20',
+        dataPrevistaDevolucao: '2026-10-27',
+        dataDevolucaoReal: '2026-10-27',
         status: 'Devolvido'
     },
     {
         id: 4,
-        livro: 'As Crônicas de Nárnia',
-        pessoa: 'Pedro Santos',
-        matricula: '2026003',
-        dataEmprestimo: '07/11/2026',
-        dataDevolucao: '14/11/2026',
+        livroId: 4,
+        pessoaId: 4,
+        dataEmprestimo: '2026-11-07',
+        dataPrevistaDevolucao: '2026-11-14',
+        dataDevolucaoReal: null,
         status: 'Em andamento'
     }
 ]

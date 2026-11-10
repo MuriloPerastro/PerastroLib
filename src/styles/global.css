@@ -1,29 +1,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
 
-
 :root {
+    /* Cores principais */
     --background: #080E16;
-    --primary: #2563eb;
-    --success: #10b981;
     --surface: #111a29;
+    --surface-hover: #172b50;
+
+    /* Cores de destaque */
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #fbbf24;
+
+    /* Textos */
     --text: #f8fafc;
     --text-secondary: #8995a8;
+
+    /* Bordas */
     --border: #202c3e;
 
+    /* Fonte */
+    --font-main: 'Lora', serif;
+
+    /* Arredondamento */
+    --radius: 12px;
 }
- * {
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    }
-
-@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
+}
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #0a0f18;
-    color: #f8fafc;
+    font-family: var(--font-main);
+    background-color: var(--background);
+    color: var(--text);
     min-height: 100vh;
     padding-bottom: 70px;
 }
 
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}

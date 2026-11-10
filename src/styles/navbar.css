@@ -295,3 +295,38 @@
     max-height: 90vh;
     overflow-y: auto;
 }
+
+
+/* Campo de sinopse no cadastro de livros */
+
+.campo-sinopse-livro {
+    display: block;
+    width: 100%;
+    min-height: 130px;
+    padding: 13px 15px;
+    margin-bottom: 16px;
+
+    color: var(--text);
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    line-height: 1.6;
+
+    resize: vertical;
+    outline: none;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo-sinopse-livro::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.campo-sinopse-livro:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgb(37 99 235 / 15%);
+}

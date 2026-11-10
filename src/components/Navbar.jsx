@@ -4,7 +4,12 @@ import { createPortal } from 'react-dom'
 import '../styles/navbar.css'
 import { useBiblioteca } from '../context/BibliotecaContext'
 function Navbar(){
-    const { setPessoas } = useBiblioteca()
+    const {
+    setPessoas,
+    setLivros,
+    categorias,
+    setCategorias
+} = useBiblioteca()
 
     const [menuAberto, setMenuAberto] = useState(false)
     const [cadastroSelecionado, setCadastroSelecionado] = useState('')
@@ -18,6 +23,16 @@ function Navbar(){
     const [matriculaPessoa, setMatriculaPessoa] = useState('')
     const [emailPessoa, setEmailPessoa] = useState('')
     const [telefonePessoa, setTelefonePessoa] = useState('')
+
+
+    // Dados do livro
+    const [tituloLivro, setTituloLivro] = useState('')
+    const [autorLivro, setAutorLivro] = useState('')
+    const [categoriaLivro, setCategoriaLivro] = useState('')
+    const [isbnLivro, setIsbnLivro] = useState('')
+    const [quantidadeLivro, setQuantidadeLivro] = useState(1)
+    const [sinopseLivro, setSinopseLivro] = useState('')
+    const [capaLivro, setCapaLivro] = useState('')
 
     function abrirCadastro(tipo){
         setCadastroSelecionado(tipo)
@@ -78,6 +93,82 @@ function Navbar(){
     fecharCadastro()
 
     alert('Pessoa cadastrada com sucesso!')
+}
+function salvarLivro(evento) {
+    evento.preventDefault()
+
+    if (!tituloLivro.trim() || !autorLivro.trim() || !categoriaLivro.trim()) {
+        alert('Preencha o título, o autor e a categoria.')
+        return
+    }
+
+    const quantidade = Number(quantidadeLivro)
+
+    if (!Number.isInteger(quantidade) || quantidade < 1) {
+        alert('A quantidade deve ser um número inteiro maior que zero.')
+        return
+    }
+
+    const novaCategoria = categoriaLivro.trim()
+
+    const novoLivro = {
+        id: Date.now(),
+        titulo: tituloLivro.trim(),
+        autor: autorLivro.trim(),
+        categoria: novaCategoria,
+        categorias: [novaCategoria],
+        isbn: isbnLivro.trim(),
+        quantidade,
+        sinopse: sinopseLivro.trim(),
+        capa: capaLivro,
+        disponibilidade: 'Disponível'
+    }
+
+    setLivros(livrosAtuais => [...livrosAtuais, novoLivro])
+
+    // Adiciona a categoria à lista, caso ainda não exista.
+    setCategorias(categoriasAtuais =>
+        categoriasAtuais.some(
+            categoria => categoria.toLowerCase() === novaCategoria.toLowerCase()
+        )
+            ? categoriasAtuais
+            : [...categoriasAtuais, novaCategoria]
+    )
+
+    // Limpa os campos
+    setTituloLivro('')
+    setAutorLivro('')
+    setCategoriaLivro('')
+    setIsbnLivro('')
+    setQuantidadeLivro(1)
+    setSinopseLivro('')
+    setCapaLivro('')
+
+    fecharCadastro()
+
+    alert('Livro cadastrado com sucesso!')
+}  
+function selecionarCapa(evento) {
+    const arquivo = evento.target.files?.[0]
+
+    if (!arquivo) {
+        setCapaLivro('')
+        return
+    }
+
+    if (!arquivo.type.startsWith('image/')) {
+        alert('Selecione um arquivo de imagem.')
+        evento.target.value = ''
+        return
+    }
+
+    const leitor = new FileReader()
+
+    leitor.onload = () => {
+        setCapaLivro(leitor.result)
+    }
+
+    leitor.readAsDataURL(arquivo)
 }
 
     return (
@@ -298,30 +389,90 @@ function Navbar(){
                             </form>
                         )}
                         {cadastroSelecionado === 'Livro' && (
-                            <form>
-                                <label>Título do livro</label>
-                                <input type="text" placeholder="Digite o título" />
+    <form onSubmit={salvarLivro}>
 
-                                <label>Autor</label>
-                                <input type="text" placeholder="Digite o autor" />
+        <label htmlFor="tituloLivro">Título do livro *</label>
+        <input
+            id="tituloLivro"
+            type="text"
+            placeholder="Digite o título"
+            value={tituloLivro}
+            onChange={evento => setTituloLivro(evento.target.value)}
+            required
+        />
 
-                                <label>Categoria</label>
-                                <input type="text" placeholder="Digite a categoria" />
+        <label htmlFor="autorLivro">Autor *</label>
+        <input
+            id="autorLivro"
+            type="text"
+            placeholder="Digite o autor"
+            value={autorLivro}
+            onChange={evento => setAutorLivro(evento.target.value)}
+            required
+        />
 
-                                <label>ISBN</label>
-                                <input type="text" placeholder="Digite o ISBN" />
+        <label htmlFor="categoriaLivro">Categoria *</label>
+        <input
+            id="categoriaLivro"
+            type="text"
+            placeholder="Ex.: Fantasia"
+            value={categoriaLivro}
+            onChange={evento => setCategoriaLivro(evento.target.value)}
+            list="lista-categorias-livro"
+            required
+        />
 
-                                <label>Quantidade</label>
-                                <input type="number" min="1" placeholder="Ex.: 5" />
+        <datalist id="lista-categorias-livro">
+            {categorias.map(categoria => (
+                <option key={categoria} value={categoria} />
+            ))}
+        </datalist>
 
-                                <label>Capa do livro</label>
-                                <input type="file" accept="image/*" />
+        <label htmlFor="isbnLivro">ISBN</label>
+        <input
+            id="isbnLivro"
+            type="text"
+            placeholder="Digite o ISBN"
+            value={isbnLivro}
+            onChange={evento => setIsbnLivro(evento.target.value)}
+        />
 
-                                <button type="button" className="modal-salvar">
-                                    Salvar Livro
-                                </button>
-                            </form>
-                        )}
+        <label htmlFor="quantidadeLivro">Quantidade *</label>
+        <input
+            id="quantidadeLivro"
+            type="number"
+            min="1"
+            step="1"
+            placeholder="Ex.: 5"
+            value={quantidadeLivro}
+            onChange={evento => setQuantidadeLivro(evento.target.value)}
+            required
+        />
+
+        <label htmlFor="sinopseLivro">Sinopse do livro</label>
+        <textarea
+            id="sinopseLivro"
+            className="campo-sinopse-livro"
+            placeholder="Escreva aqui um resumo sobre a história do livro..."
+            value={sinopseLivro}
+            onChange={evento => setSinopseLivro(evento.target.value)}
+            rows="5"
+        />
+
+        <label htmlFor="capaLivro">Capa do livro</label>
+        <input
+            id="capaLivro"
+            type="file"
+            accept="image/*"
+            onChange={selecionarCapa}
+        />
+
+        <button type="submit" className="modal-salvar">
+            Salvar Livro
+        </button>
+
+    </form>
+)}
                 </div>
         </div>,
     document.body

@@ -13,6 +13,15 @@ function Emprestimo() {
 
     const livro = livros.find(item => item.id === Number(id))
 
+    const quantidadeTotal = Number(livro?.quantidade ?? 1)
+
+    const emprestimosAtivos = registros.filter(registro =>
+        registro.livroId === livro?.id &&
+        registro.status !== 'Devolvido'
+    ).length
+
+    const quantidadeDisponivel = quantidadeTotal - emprestimosAtivos
+
     const [pesquisa, setPesquisa] = useState('')
     const [pessoaSelecionada, setPessoaSelecionada] = useState(null)
     const [dataDevolucao, setDataDevolucao] = useState('')
@@ -43,9 +52,8 @@ function Emprestimo() {
     const dataLimite = formatarData(limite)
 
     const pessoasFiltradas = pessoas.filter(pessoa =>
-        pessoa.nome.toLowerCase().includes(pesquisa.toLowerCase()) ||
-        pessoa.matricula.toLowerCase().includes(pesquisa.toLowerCase())
-    )
+    pessoa.nome.toLowerCase().includes(pesquisa.toLowerCase()) ||
+    (pessoa.matricula || '').toLowerCase().includes(pesquisa.toLowerCase()))
 
     function escolherData(valor) {
         setDataDevolucao(valor)
@@ -69,52 +77,63 @@ function Emprestimo() {
     }
 
     function confirmarEmprestimo() {
-
         if (!pessoaSelecionada) {
             setErro('Selecione uma pessoa para continuar.')
             return
         }
 
         if (!dataDevolucao) {
-            setErro('Escolha uma data para devolução.')
-            return
-        }
+        setErro('Escolha uma data para devolução.')
+        return
+    }
 
-        const dataEscolhida = new Date(`${dataDevolucao}T12:00:00`)
-        const diaSemana = dataEscolhida.getDay()
+    const dataEscolhida = new Date(`${dataDevolucao}T12:00:00`)
+    const diaSemana = dataEscolhida.getDay()
 
-        if (
-            dataDevolucao < dataHoje ||
-            dataDevolucao > dataLimite ||
-            diaSemana === 0 ||
-            diaSemana === 6
-        ) {
-            setErro('Escolha uma data útil dentro do limite de dois meses.')
-            return
-        }
+    if (
+        dataDevolucao < dataHoje ||
+        dataDevolucao > dataLimite ||
+        diaSemana === 0 ||
+        diaSemana === 6
+    ) {
+        setErro('Escolha uma data útil dentro do limite de dois meses.')
+        return
+    }
 
-        if (livro.disponibilidade !== 'Disponível') {
-            setErro('Este livro não está disponível para empréstimo.')
-            return
-        }
+    if (quantidadeDisponivel <= 0) {
+        setErro('Não existem exemplares disponíveis deste livro.')
+        return
+    }
 
         const novoRegistro = {
             id: Date.now(),
-            livro: livro.titulo,
-            pessoa: pessoaSelecionada.nome,
-            matricula: pessoaSelecionada.matricula,
-            dataEmprestimo: hoje.toLocaleDateString('pt-BR'),
-            dataDevolucao: dataEscolhida.toLocaleDateString('pt-BR'),
+            livroId: livro.id,
+            pessoaId: pessoaSelecionada.id,
+            dataEmprestimo: dataHoje,
+            dataPrevistaDevolucao: dataDevolucao,
+            dataDevolucaoReal: null,
             status: 'Em andamento'
         }
 
-        setRegistros([...registros, novoRegistro])
+        setRegistros(registrosAtuais => [
+            ...registrosAtuais,
+            novoRegistro
+        ])
 
-        setLivros(livros.map(item =>
-            item.id === livro.id
-                ? { ...item, disponibilidade: 'Emprestado' }
-                : item
-        ))
+        const novaQuantidadeDisponivel = quantidadeDisponivel - 1
+
+        setLivros(livrosAtuais =>
+            livrosAtuais.map(item =>
+                item.id === livro.id
+                    ? {
+                        ...item,
+                        disponibilidade: novaQuantidadeDisponivel > 0
+                            ? 'Disponível'
+                            : 'Emprestado'
+                    }
+                    : item
+            )
+        )
 
         navegar('/registros')
     }
@@ -223,11 +242,14 @@ function Emprestimo() {
             <button
                 className="emprestimo-confirmar"
                 onClick={confirmarEmprestimo}
-                disabled={livro.disponibilidade !== 'Disponível'}
+                disabled={quantidadeDisponivel <= 0}
             >
                 Confirmar empréstimo
             </button>
-
+            <section className="emprestimo-livro">
+                <strong>Exemplares disponíveis:</strong>
+                <span>{Math.max(0, quantidadeDisponivel)} de {quantidadeTotal}</span>
+            </section>    
         </main>
     )
 }
