@@ -20,6 +20,8 @@ function Emprestimo() {
         registro.status !== 'Devolvido'
     ).length
 
+    
+
     const quantidadeDisponivel = quantidadeTotal - emprestimosAtivos
 
     const [pesquisa, setPesquisa] = useState('')
@@ -54,6 +56,35 @@ function Emprestimo() {
     const pessoasFiltradas = pessoas.filter(pessoa =>
     pessoa.nome.toLowerCase().includes(pesquisa.toLowerCase()) ||
     (pessoa.matricula || '').toLowerCase().includes(pesquisa.toLowerCase()))
+
+    function calcularIdade(dataNascimento, dataReferencia) {
+    if (!dataNascimento) return null
+
+    const nascimento = new Date(`${dataNascimento}T12:00:00`)
+    const referencia = new Date(`${dataReferencia}T12:00:00`)
+
+    if (
+        Number.isNaN(nascimento.getTime()) ||
+        Number.isNaN(referencia.getTime())
+    ) {
+        return null
+    }
+
+    let idade = referencia.getFullYear() - nascimento.getFullYear()
+
+    const aindaNaoFezAniversario =
+        referencia.getMonth() < nascimento.getMonth() ||
+        (
+            referencia.getMonth() === nascimento.getMonth() &&
+            referencia.getDate() < nascimento.getDate()
+        )
+
+    if (aindaNaoFezAniversario) {
+        idade--
+    }
+
+    return idade >= 0 ? idade : null
+}
 
     function escolherData(valor) {
         setDataDevolucao(valor)
@@ -106,14 +137,38 @@ function Emprestimo() {
     }
 
         const novoRegistro = {
-            id: Date.now(),
-            livroId: livro.id,
-            pessoaId: pessoaSelecionada.id,
-            dataEmprestimo: dataHoje,
-            dataPrevistaDevolucao: dataDevolucao,
-            dataDevolucaoReal: null,
-            status: 'Em andamento'
-        }
+    id: Date.now(),
+
+    // Identificação original
+    livroId: livro.id,
+    pessoaId: pessoaSelecionada.id,
+
+    // Dados históricos do livro
+    livroTitulo: livro.titulo,
+    livroAutor: livro.autor,
+    categoriasLivro: Array.isArray(livro.categorias)
+        ? [...livro.categorias]
+        : livro.categoria
+            ? [livro.categoria]
+            : [],
+
+    // Dados históricos da pessoa
+    pessoaNome: pessoaSelecionada.nome,
+    pessoaMatricula: pessoaSelecionada.matricula || '',
+    pessoaTipo: pessoaSelecionada.tipo || 'Não informado',
+    turmaPessoa: pessoaSelecionada.turma || 'Não informada',
+    generoPessoa: pessoaSelecionada.genero || 'Não informado',
+    idadePessoa: calcularIdade(
+        pessoaSelecionada.dataNascimento,
+        dataHoje
+    ),
+
+    // Datas e situação do empréstimo
+    dataEmprestimo: dataHoje,
+    dataPrevistaDevolucao: dataDevolucao,
+    dataDevolucaoReal: null,
+    status: 'Em andamento'
+}
 
         setRegistros(registrosAtuais => [
             ...registrosAtuais,
