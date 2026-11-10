@@ -11,10 +11,17 @@ export function BibliotecaProvider({ children }) {
     const [livros, setLivros] = useState(livrosIniciais)
     const [pessoas, setPessoas] = useState(pessoasIniciais)
     const [registros, setRegistros] = useState(registrosIniciais)
+    const [categorias, setCategorias] = useState([
+    'Infantojuvenil',
+    'Fantasia',
+    'Romance',
+    'Aventura'
+])
 
     return (
         <BibliotecaContext.Provider
             value={{
+                
                 livros,
                 setLivros,
 
@@ -22,7 +29,10 @@ export function BibliotecaProvider({ children }) {
                 setPessoas,
 
                 registros,
-                setRegistros
+                setRegistros,
+                
+                categorias,
+                setCategorias
             }}
         >
             {children}

@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import '../styles/paginas.css'
-import pessoas from '../data/pessoas'
+import { useBiblioteca } from '../context/BibliotecaContext'
 
 function Pessoas(){
+    const { pessoas } = useBiblioteca()
     const [pesquisa, setPesquisa] = useState('')
-const [tipoSelecionado, setTipoSelecionado] = useState('Todos')
+    const [tipoSelecionado, setTipoSelecionado] = useState('Todos')
 
-const pessoasFiltradas = pessoas.filter((pessoa) => {
+    const pessoasFiltradas = pessoas.filter((pessoa) => {
     const correspondePesquisa =
         pessoa.nome.toLowerCase().includes(pesquisa.toLowerCase()) ||
-        pessoa.matricula.toLowerCase().includes(pesquisa.toLowerCase())
+        (pessoa.matricula || '').toLowerCase().includes(pesquisa.toLowerCase())
 
     const correspondeTipo =
         tipoSelecionado === 'Todos' ||
@@ -62,6 +63,13 @@ const pessoasFiltradas = pessoas.filter((pessoa) => {
                     </button>
 
                     <button
+                        className={tipoSelecionado === 'Outro' ? 'active' : ''}
+                        onClick={() => setTipoSelecionado('Outro')}
+                    >
+                        Outros
+                    </button>
+                    
+                    <button
                         className={tipoSelecionado === 'Professor' ? 'active' : ''}
                         onClick={() => setTipoSelecionado('Professor')}>
                             Professores
@@ -78,11 +86,46 @@ const pessoasFiltradas = pessoas.filter((pessoa) => {
                         </div>
                         
                         <div className='pessoa-dados'>
-                            <h3>{pessoa.nome}</h3>
-                            <p>Matricula: {pessoa.matricula}</p>
-                            <p>{pessoa.turma}</p>
+
+                        <h3>{pessoa.nome}</h3>
+
+                        <p>{pessoa.tipo}</p>
+
+                        {pessoa.genero && (
+                            <p>
+                                Gênero: {pessoa.genero === 'Outro'
+                                    ? pessoa.generoDescricao || 'Outro'
+                                    : pessoa.genero}
+                            </p>
+                        )}
+
+                        {pessoa.dataNascimento && (
+                            <p>
+                                Nascimento: {pessoa.dataNascimento.split('-').reverse().join('/')}
+                            </p>
+                        )}
+
+                        {pessoa.matricula && (
+                            <p>Matrícula: {pessoa.matricula}</p>
+                        )}
+
+                        {pessoa.turma && (
+                            <p>Turma: {pessoa.turma}</p>
+                        )}
+
+                        {pessoa.email && (
+                            <p>{pessoa.email}</p>
+                        )}
+
+                        {pessoa.telefone && (
+                            <p>{pessoa.telefone}</p>
+                        )}
+
+                        {!pessoa.email && !pessoa.telefone && pessoa.contato && (
                             <p>{pessoa.contato}</p>
-                        </div>
+                        )}
+
+                    </div>
 
                         <span className='Pessoa-tipo'>
                             {pessoa.tipo}

@@ -4,7 +4,7 @@ import { useBiblioteca } from '../context/BibliotecaContext'
 import LivroCard from '../components/LivroCard'
 
 function Livros(){
-    const { livros } = useBiblioteca()
+    const { livros, categorias } = useBiblioteca()
     const [pesquisa, setPesquisa] = useState('')
     const [categoriaSelecionada, setCategoriaSelecionada] = useState('Todas')
     const [statusSelecionado, setStatusSelecionado] = useState('Todos')
@@ -17,7 +17,7 @@ function Livros(){
 
         const correspondeCategoria =
             categoriaSelecionada === 'Todas' ||
-            livro.categoria === categoriaSelecionada
+            (livro.categorias || [livro.categoria]).includes(categoriaSelecionada)
 
         const correspondeStatus =
             statusSelecionado === 'Todos' ||
@@ -55,11 +55,11 @@ function Livros(){
                     value={categoriaSelecionada}
                     onChange={(evento) => setCategoriaSelecionada(evento.target.value)}
                 >
-                    <option value="Todas">Todas as categorias</option>
-                    <option value="Infantojuvenil">Infantojuvenil</option>
-                    <option value="Fantasia">Fantasia</option>
-                    <option value="Romance">Romance</option>
-                    <option value="Aventura">Aventura</option>
+                    {categorias.map((categoria) => (
+                        <option key={categoria} value={categoria}>
+                            {categoria}
+                        </option>
+                    ))}
                 </select>
 
                 <select

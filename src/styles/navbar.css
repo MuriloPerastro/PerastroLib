@@ -248,3 +248,50 @@
 .modal-salvar:hover {
     background-color: #1d4ed8;
 }
+
+/* Seletores do formulário de cadastro */
+.modal-cadastro select {
+    width: 100%;
+    padding: 13px;
+    margin-bottom: 18px;
+
+    background: #0a0f18;
+    color: #e5e7eb;
+
+    border: 1px solid #263449;
+    border-radius: 9px;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    outline: none;
+    cursor: pointer;
+}
+
+.modal-cadastro select:focus {
+    border-color: #2563eb;
+}
+
+/* Opções dos seletores */
+.modal-cadastro select option {
+    background: #111c2c;
+    color: #e5e7eb;
+}
+
+/* Subtítulo das informações opcionais */
+.cadastro-subtitulo {
+    margin-top: 12px;
+    margin-bottom: 14px;
+
+    color: #e5e7eb;
+    font-size: 14px;
+    font-weight: 600;
+    padding-top: 12px;
+    border-top: 1px solid #263449;
+}
+
+/* Modal com rolagem quando o formulário ficar maior */
+.modal-cadastro {
+    max-height: 90vh;
+    overflow-y: auto;
+}
