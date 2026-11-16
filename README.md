@@ -36,8 +36,8 @@ Se quiser utilizar o PerastroLib, não é necessário configurar o ambiente de d
 5. Comece a cadastrar livros, pessoas e empréstimos.
 
 <p align="center">
-  <a href="./release/PerastroLib Setup 1.0.0.exe">
-    <strong>⬇ Baixar PerastroLib para Windows</strong>
+  <a href="PerastroLib Setup 1.0.0.exe">
+    <strong>Baixar PerastroLib para Windows</strong>
   </a>
 </p>
 
