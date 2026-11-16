@@ -275,11 +275,11 @@ const categoriasPopulares = Object.entries(contagemCategorias)
 
 // Distribuição por faixa etária
 const faixasEtarias = [
-    { nome: 'Até 10 anos', minimo: 0, maximo: 10 },
-    { nome: '11 a 14 anos', minimo: 11, maximo: 14 },
+    { nome: 'Até 14 anos', minimo: 0, maximo: 14 },
     { nome: '15 a 17 anos', minimo: 15, maximo: 17 },
-    { nome: '18 a 24 anos', minimo: 18, maximo: 24 },
-    { nome: '25 anos ou mais', minimo: 25, maximo: Infinity }
+    { nome: '18 a 20 anos', minimo: 18, maximo: 20 },
+    { nome: '21 a 25 anos', minimo: 21, maximo: 25 },
+    { nome: '26 anos ou mais', minimo: 25, maximo: Infinity }
 ]
 
 const emprestimosPorIdade = faixasEtarias.map(faixa => ({

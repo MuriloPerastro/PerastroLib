@@ -3,14 +3,17 @@ import '../styles/paginas.css'
 import { useBiblioteca } from '../context/BibliotecaContext'
 
 function Pessoas(){
-    const { pessoas, setPessoas, registros } = useBiblioteca()
+    const { pessoas, setPessoas, registros, turmas } = useBiblioteca()
     const [pesquisa, setPesquisa] = useState('')
     const [tipoSelecionado, setTipoSelecionado] = useState('Todos')
     const [pessoaEditando, setPessoaEditando] = useState(null)
         
         function abrirEdicao(pessoa) {
-        setPessoaEditando({ ...pessoa })
-    }
+    setPessoaEditando({
+        ...pessoa,
+        turma: pessoa.turma || 'N/D'
+    })
+}
 
     function atualizarCampo(campo, valor) {
         setPessoaEditando(pessoaAtual => ({
@@ -196,9 +199,7 @@ function Pessoas(){
                             <p>Matrícula: {pessoa.matricula}</p>
                         )}
 
-                        {pessoa.turma && (
-                            <p>Turma: {pessoa.turma}</p>
-                        )}
+                        <p>Turma: {pessoa.turma || 'N/D'}</p>
 
                         {pessoa.email && (
                             <p>{pessoa.email}</p>
@@ -358,15 +359,16 @@ function Pessoas(){
                         required={pessoaEditando.tipo === 'Aluno'}
                     >
                         <option value="">Selecione a turma</option>
-                        <option value="1A">1A</option>
-                        <option value="1B">1B</option>
-                        <option value="1C">1C</option>
-                        <option value="2A">2A</option>
-                        <option value="2B">2B</option>
-                        <option value="2C">2C</option>
-                        <option value="3A">3A</option>
-                        <option value="3B">3B</option>
-                        <option value="3C">3C</option>
+
+                        {turmas
+                            .filter(turma => turma !== 'N/D')
+                            .map(turma => (
+                                <option key={turma} value={turma}>
+                                    {turma}
+                                </option>
+                            ))}
+
+                        <option value="N/D">N/D</option>
                     </select>
 
                     <h3 className="cadastro-subtitulo">

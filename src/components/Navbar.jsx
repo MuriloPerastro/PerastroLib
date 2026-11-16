@@ -8,7 +8,9 @@ function Navbar(){
     setPessoas,
     setLivros,
     categorias,
-    setCategorias
+    setCategorias,
+    turmas,
+    config
 } = useBiblioteca()
 
     const [menuAberto, setMenuAberto] = useState(false)
@@ -33,6 +35,11 @@ function Navbar(){
     const [quantidadeLivro, setQuantidadeLivro] = useState(1)
     const [sinopseLivro, setSinopseLivro] = useState('')
     const [capaLivro, setCapaLivro] = useState('')
+
+    const [cddLivro, setCddLivro] = useState('')
+    const [estanteLivro, setEstanteLivro] = useState('')
+    const [secaoLivro, setSecaoLivro] = useState('')
+
 
     function abrirCadastro(tipo){
         setCadastroSelecionado(tipo)
@@ -112,17 +119,24 @@ function salvarLivro(evento) {
     const novaCategoria = categoriaLivro.trim()
 
     const novoLivro = {
-        id: Date.now(),
-        titulo: tituloLivro.trim(),
-        autor: autorLivro.trim(),
-        categoria: novaCategoria,
-        categorias: [novaCategoria],
-        isbn: isbnLivro.trim(),
-        quantidade,
-        sinopse: sinopseLivro.trim(),
-        capa: capaLivro,
-        disponibilidade: 'Disponível'
-    }
+    id: Date.now(),
+    titulo: tituloLivro.trim(),
+    autor: autorLivro.trim(),
+    categoria: novaCategoria,
+    categorias: [novaCategoria],
+    isbn: isbnLivro.trim(),
+    quantidade,
+    sinopse: sinopseLivro.trim(),
+    capa: capaLivro,
+    disponibilidade: 'Disponível',
+
+    ...(config.modoOrganizacao === 'cdd'
+        ? { cdd: cddLivro.trim() }
+        : {
+            estante: estanteLivro.trim(),
+            secao: secaoLivro.trim()
+        })
+}
 
     setLivros(livrosAtuais => [...livrosAtuais, novoLivro])
 
@@ -143,6 +157,9 @@ function salvarLivro(evento) {
     setQuantidadeLivro(1)
     setSinopseLivro('')
     setCapaLivro('')
+    setCddLivro('')
+    setEstanteLivro('')
+    setSecaoLivro('')
 
     fecharCadastro()
 
@@ -174,10 +191,9 @@ function selecionarCapa(evento) {
     return (
         <header className="navbar">
             <NavLink  to="/" className="navbar-logo">
-                <img 
-                    src="/assets/perastrolib-icon.png"
-                    alt='Ícone PerastroLib'   
-                />
+                <img
+                    src={`${import.meta.env.BASE_URL}perastrolib-icon.png`}
+                    alt="Ícone PerastroLib"/>
                 <span> PerastroLib</span>
             </NavLink>
             
@@ -198,6 +214,10 @@ function selecionarCapa(evento) {
 
                     <NavLink to="/registros">
                         Registros
+                    </NavLink>
+                    
+                    <NavLink to="/configuracoes">
+                        Configurações
                     </NavLink>
                 </nav>
 
@@ -319,6 +339,7 @@ function selecionarCapa(evento) {
                                 {/* TURMA */}
                                 <label htmlFor="turmaPessoa">Turma</label>
 
+                                
                                 <select
                                     id="turmaPessoa"
                                     value={turmaPessoa}
@@ -326,15 +347,16 @@ function selecionarCapa(evento) {
                                     required={tipoPessoa === 'Aluno'}
                                 >
                                     <option value="">Selecione a turma</option>
-                                    <option value="1A">1A</option>
-                                    <option value="1B">1B</option>
-                                    <option value="1C">1C</option>
-                                    <option value="2A">2A</option>
-                                    <option value="2B">2B</option>
-                                    <option value="2C">2C</option>
-                                    <option value="3A">3A</option>
-                                    <option value="3B">3B</option>
-                                    <option value="3C">3C</option>
+
+                                    {turmas
+                                        .filter(turma => turma !== 'N/D')
+                                        .map(turma => (
+                                            <option key={turma} value={turma}>
+                                                {turma}
+                                            </option>
+                                        ))}
+
+                                    <option value="N/D">N/D</option>
                                 </select>
 
                                 {/* INFORMAÇÕES OPCIONAIS */}
@@ -448,6 +470,47 @@ function selecionarCapa(evento) {
             onChange={evento => setQuantidadeLivro(evento.target.value)}
             required
         />
+        {config.modoOrganizacao === 'cdd' ? (
+            <>
+                <label htmlFor="cddLivro">
+                    Classificação CDD
+                </label>
+
+                <input
+                    id="cddLivro"
+                    type="text"
+                    placeholder="Ex.: 869.3, 500, B869"
+                    value={cddLivro}
+                    onChange={evento => setCddLivro(evento.target.value)}
+                />
+            </>
+        ) : (
+            <>
+                <label htmlFor="estanteLivro">
+                    Estante
+                </label>
+
+                <input
+                    id="estanteLivro"
+                    type="text"
+                    placeholder="Ex.: A, B, 1, 2..."
+                    value={estanteLivro}
+                    onChange={evento => setEstanteLivro(evento.target.value)}
+                />
+
+                <label htmlFor="secaoLivro">
+                    Seção
+                </label>
+
+                <input
+                    id="secaoLivro"
+                    type="text"
+                    placeholder="Ex.: 1, 2, BA, ABC..."
+                    value={secaoLivro}
+                    onChange={evento => setSecaoLivro(evento.target.value)}
+                />
+            </>
+        )}
 
         <label htmlFor="sinopseLivro">Sinopse do livro</label>
         <textarea

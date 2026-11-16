@@ -7,18 +7,61 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Dependências
+node_modules/
+jspm_packages/
+web_modules/
+vendor/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Builds e Compilações
+dist/
+dist-ssr/
+build/
+out/
+target/
+*.class
+*.py[cod]
+__pycache__/
+
+# Ambiente, Segredos e Configurações Locais
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+config.json
+
+# Bases de Dados Locais e Temporários
+*.sqlite
+*.sqlite3
+*.db
 .DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs e Ferramentas de Desenvolvimento
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+.project
+.classpath
+.settings/
+
+electron/
+
+# Testes e Cobertura
+coverage/
+.nyc_output/
+.jest/
+
+/release/*
+!/release/*.exe

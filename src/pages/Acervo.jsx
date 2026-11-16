@@ -3,20 +3,43 @@ import '../styles/acervo.css'
 import { useBiblioteca } from '../context/BibliotecaContext'
 import LivroCard from '../components/LivroCard'
 function Acervo(){
-    const { livros } = useBiblioteca()
-
+    const { livros, registros, config } = useBiblioteca()
     const [pesquisa, setPesquisa] = useState('')
     const [categoriaSelecionada, setCategoriaSelecionada] = useState('Todos')
     
-    const livrosFiltrados = livros.filter((livro)=> {
-        const correspondePesquisa =
-        livro.titulo.toLowerCase().includes(pesquisa.toLowerCase()) ||
-        livro.autor.toLowerCase().includes(pesquisa.toLowerCase())
+    const livrosMaisEmprestados = [...livros]
+    .map(livro => ({
+        ...livro,
+        totalEmprestimos: registros.filter(
+            registro => registro.livroId === livro.id
+        ).length
+    }))
+    .sort((a, b) => b.totalEmprestimos - a.totalEmprestimos)
+    .slice(0, 6)
 
-        const correspondeCategoria = categoriaSelecionada === 'Todos' || livro.categoria === categoriaSelecionada
+const livrosFiltrados = livrosMaisEmprestados.filter(livro => {
+    const termo = pesquisa.toLowerCase().trim()
 
-        return correspondePesquisa && correspondeCategoria
-    })
+    const correspondeLocalizacao =
+        config.modoOrganizacao === 'cdd'
+            ? (livro.cdd || '').toLowerCase().includes(termo)
+            : (
+                (livro.estante || '').toLowerCase().includes(termo) ||
+                (livro.secao || '').toLowerCase().includes(termo)
+            )
+
+    const correspondePesquisa =
+        (livro.titulo || '').toLowerCase().includes(termo) ||
+        (livro.autor || '').toLowerCase().includes(termo) ||
+        correspondeLocalizacao
+
+    const correspondeCategoria =
+        categoriaSelecionada === 'Todos' ||
+        (livro.categorias || [livro.categoria])
+            .includes(categoriaSelecionada)
+
+    return correspondePesquisa && correspondeCategoria
+})  
     
     const totalLivros = livros.length
 
@@ -80,8 +103,11 @@ function Acervo(){
 
                     <input 
                     type="text"
-                    placeholder='Pesquisar por título ou autor...'
-                    value={pesquisa} 
+                    placeholder={
+                        config.modoOrganizacao === 'cdd'
+                            ? 'Pesquisar por título, autor ou CDD...'
+                            : 'Pesquisar por título, autor, estante ou seção...'
+                    }                    value={pesquisa} 
                     onChange={(evento)=> setPesquisa(evento.target.value)}
                     />
 

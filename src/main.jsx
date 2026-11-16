@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router'
+import { HashRouter } from 'react-router'
 import { BibliotecaProvider } from './context/BibliotecaContext'
 
 import './styles/global.css'
@@ -11,11 +11,11 @@ createRoot(document.getElementById('root')).render(
 
         <BibliotecaProvider>
 
-            <BrowserRouter>
+            <HashRouter>
 
                 <App />
 
-            </BrowserRouter>
+            </HashRouter>
 
         </BibliotecaProvider>
         

@@ -49,7 +49,7 @@ function Emprestimo() {
     const dataHoje = formatarData(hoje)
 
     const limite = new Date(hoje)
-    limite.setMonth(limite.getMonth() + 2)
+    limite.setDate(limite.getDate() + 15) // Adiciona 15 dias à data de hoje
 
     const dataLimite = formatarData(limite)
 
@@ -156,7 +156,7 @@ function Emprestimo() {
     pessoaNome: pessoaSelecionada.nome,
     pessoaMatricula: pessoaSelecionada.matricula || '',
     pessoaTipo: pessoaSelecionada.tipo || 'Não informado',
-    turmaPessoa: pessoaSelecionada.turma || 'Não informada',
+    turmaPessoa: pessoaSelecionada.turma || 'N/D',
     generoPessoa: pessoaSelecionada.genero || 'Não informado',
     idadePessoa: calcularIdade(
         pessoaSelecionada.dataNascimento,
@@ -275,7 +275,7 @@ function Emprestimo() {
                 />
 
                 <small>
-                    Escolha um dia de segunda a sexta, dentro dos próximos dois meses.
+                    Escolha um dia de segunda a sexta, dentro do prazo máximo de 15 dias.
                 </small>
             </section>
 

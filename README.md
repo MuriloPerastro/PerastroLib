@@ -1,56 +1,84 @@
+# PerastroLib
+
+### Sistema de Gerenciamento de Biblioteca
+
 <p align="center">
-  <img src="caminho-para-sua-imagem/banner.png" alt="PerastroLib Banner" width="100%">
+  <img src="assets/gifreadme.gif" alt="Demonstração do PerastroLib" width="850"/>
 </p>
 
-# PerastroLib — Sistema Web de Gerenciamento de Biblioteca Escolar
-
-Sistema web desenvolvido como Projeto de Extensão Universitária para modernizar e organizar os processos de gerenciamento da biblioteca de um colégio local[cite: 1].
-
----
-
-## Sobre o Projeto
-
-O PerastroLib tem como finalidade substituir processos manuais por uma ferramenta digital ágil e confiável, facilitando o controle do acervo, o cadastro de pessoas e o gerenciamento de empréstimos e devoluções[cite: 1].
-
-### Objetivos Principais
-* Digitalizar o cadastro e a organização dos livros[cite: 1]
-* Automatizar o controle de empréstimos e devoluções[cite: 1]
-* Disponibilizar histórico de movimentações[cite: 1]
-* Oferecer uma interface simples e acessível para o responsável pela biblioteca[cite: 1]
+<p align="center">
+  Sistema desenvolvido para modernizar a organização e o gerenciamento de bibliotecas.
+</p>
 
 ---
 
-## Tecnologias Utilizadas
+## Sobre o projeto
 
-O projeto foi construído utilizando as seguintes tecnologias web:
+O **PerastroLib** é uma aplicação desenvolvida como projeto de estudo e aplicação prática de conhecimentos em desenvolvimento de software. Surgiu a partir da necessidade de modernizar e facilitar a administração da biblioteca do **Colégio Estadual de Tempo Integral Edivaldo Machado Boaventura**, localizado em Barra do Mendes – BA.
 
-* **Interface:** React.js (com componentes reutilizáveis baseados em JSX)[cite: 1]
-* **Estilização:** CSS3 (responsividade e identidade visual)[cite: 1]
-* **Lógica:** JavaScript[cite: 1]
-* **Estruturação:** HTML5[cite: 1]
-* **Versionamento:** Git e GitHub[cite: 1]
+Inicialmente desenvolvido para atender à realidade dessa instituição, o sistema foi estruturado para que também possa ser utilizado por outras escolas, bibliotecas e instituições que desejem organizar seus acervos e controlar empréstimos de maneira simples e eficiente.
+
+Cada instituição pode configurar o nome da sua biblioteca e cadastrar suas próprias turmas, adaptando o sistema à sua realidade.
+
+## Como baixar e utilizar
+
+Se quiser utilizar o PerastroLib, não é necessário configurar o ambiente de desenvolvimento.
+
+1. Acesse o arquivo executável disponibilizado abaixo.
+2. Baixe o instalador para Windows.
+3. Execute o arquivo `.exe` e siga as instruções de instalação.
+4. Abra o PerastroLib e informe o nome da sua instituição na configuração inicial.
+5. Comece a cadastrar livros, pessoas e empréstimos.
+
+<p align="center">
+  <a href="release/NOME-DO-INSTALADOR.exe">
+    <strong>⬇ Baixar PerastroLib para Windows</strong>
+  </a>
+</p>
+
+> O armazenamento dos dados é local no computador em que o aplicativo está sendo utilizado. Desinstalar ou trocar de computador não garante a transferência dos dados. Faça cópias de segurança das suas informações.
+
+## Funcionalidades
+
+- **Dashboard:** visualização de indicadores e informações gerais da biblioteca.
+- **Acervo:** cadastro, consulta, edição e gerenciamento de livros.
+- **Pessoas:** cadastro e gerenciamento de alunos e demais leitores.
+- **Empréstimos:** registro de empréstimos, prazos e devoluções.
+- **Histórico:** acompanhamento dos registros de empréstimos e devoluções.
+- **Disponibilidade:** controle da quantidade de exemplares disponíveis.
+- **Organização:** gerenciamento de turmas e configurações da instituição.
+
+## Tecnologias utilizadas
+
+- **React:** construção da interface e gerenciamento dos componentes.
+- **JavaScript:** implementação das funcionalidades e regras de negócio.
+- **Vite:** ambiente de desenvolvimento e ferramenta de build.
+- **CSS:** estilização e identidade visual da aplicação.
+- **LocalStorage:** armazenamento local de dados em formato JSON.
+- **Electron:** empacotamento da aplicação para execução como aplicativo desktop no Windows.
+
+## Desenvolvimento e uso de Inteligência Artificial
+
+Durante o desenvolvimento, utilizei ferramentas de Inteligência Artificial como apoio à aprendizagem, à resolução de problemas e à construção de funcionalidades.
+
+Entretanto, o projeto não se limitou à geração automática de código. Realizei adaptações, alterações estruturais, personalizações visuais, implementação de regras de negócio, testes e ajustes conforme as necessidades reais da biblioteca.
+
+Esse processo contribuiu para ampliar meus conhecimentos em React, JavaScript, organização de projetos e desenvolvimento de aplicações, além de fortalecer minha capacidade de analisar, compreender e modificar códigos.
+
+## Objetivo
+
+O principal objetivo do PerastroLib é contribuir para a transformação digital das bibliotecas, oferecendo uma ferramenta que facilite o trabalho dos responsáveis, melhore a organização dos acervos e incentive o acesso à leitura.
+
+## Contexto acadêmico e social
+
+O projeto foi desenvolvido a partir de uma necessidade identificada no **Colégio Estadual de Tempo Integral Edivaldo Machado Boaventura**, em Barra do Mendes, Bahia, como parte de uma experiência de estudo e aplicação prática de conhecimentos em tecnologia.
+
+Embora tenha surgido nesse contexto escolar, o PerastroLib foi pensado para ser adaptável e atender também outras instituições que desejem utilizar uma ferramenta de gerenciamento de bibliotecas.
 
 ---
 
-## Módulos do Sistema
-
-1. **Início / Acervo:** Tela principal para visualização, pesquisa e consulta de disponibilidade dos livros[cite: 1].
-2. **Livros:** Gerenciamento completo do acervo (cadastro, edição, exclusão, sinopse, capa e exemplares)[cite: 1].
-3. **Pessoas:** Cadastro e controle de alunos, professores e outros usuários, incluindo histórico de empréstimos ativos[cite: 1].
-4. **Registros:** Histórico detalhado de movimentações, com filtros por situação, turma e gênero literário[cite: 1].
-
----
-
-## Regras de Negócio Principais
-
-* Impedir o empréstimo de exemplares indisponíveis[cite: 1].
-* Evitar múltiplos empréstimos ativos simultâneos para o mesmo exemplar[cite: 1].
-* Atualizar automaticamente o status do exemplar (disponível/emprestado) conforme a movimentação[cite: 1].
-* Manter o histórico de empréstimos armazenado após a devolução[cite: 1].
-* Respeitar os relacionamentos e restrições de integridade na exclusão de registros[cite: 1].
-
----
-
-## Autor
-
-Projeto desenvolvido no âmbito acadêmico para integração com a comunidade local[cite: 1].
+<p align="center">
+  Desenvolvido como projeto de estudo e aplicação prática.
+  <br/>
+  <strong>PerastroLib</strong>
+</p>

@@ -1,0 +1,91 @@
+
+.config-inicial {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: var(--background);
+}
+
+.config-inicial-card {
+    width: 100%;
+    max-width: 460px;
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.config-inicial-logo {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.config-inicial-logo h1 {
+    color: var(--primary);
+    font-size: 32px;
+}
+
+.config-inicial-logo p,
+.config-inicial-texto p,
+.config-inicial-card small {
+    color: var(--text-secondary);
+}
+
+.config-inicial-texto {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.config-inicial-texto h2 {
+    margin-bottom: 8px;
+}
+
+.config-inicial-card label {
+    font-weight: 600;
+}
+
+.config-inicial-card input {
+    width: 100%;
+    padding: 13px;
+    color: var(--text);
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    outline: none;
+}
+
+.config-inicial-card input:focus {
+    border-color: var(--primary);
+}
+
+.config-inicial-card button {
+    padding: 13px;
+    color: white;
+    background: var(--primary);
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.config-inicial-card button:hover {
+    background: var(--primary-hover);
+}
+
+.config-inicial-card small {
+    text-align: center;
+}
+.config-inicial-card select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+}
