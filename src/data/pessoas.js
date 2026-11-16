@@ -1,5 +1,3 @@
-const pessoas = [
-    {}
-]
+const pessoas = []
 
 export default pessoas

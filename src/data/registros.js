@@ -1,6 +1,3 @@
-const registros = [
-    {}
-
-]
+const registros = []
 
 export default registros

@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HashRouter } from 'react-router'
 import { BibliotecaProvider } from './context/BibliotecaContext'
+import ErrorBoundary from './components/ErrorBoundary'
 
 import './styles/global.css'
 import App from './App.jsx'
@@ -9,15 +10,19 @@ import App from './App.jsx'
 createRoot(document.getElementById('root')).render(
     <StrictMode>
 
-        <BibliotecaProvider>
+        <ErrorBoundary>
 
-            <HashRouter>
+            <BibliotecaProvider>
 
-                <App />
+                <HashRouter>
 
-            </HashRouter>
+                    <App />
 
-        </BibliotecaProvider>
+                </HashRouter>
+
+            </BibliotecaProvider>
+
+        </ErrorBoundary>
         
     </StrictMode>,
 )

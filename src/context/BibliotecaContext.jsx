@@ -3,6 +3,7 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import livrosIniciais from '../data/livros'
 import pessoasIniciais from '../data/pessoas'
 import registrosIniciais from '../data/registros'
+import { restaurarNoArmazenamento } from '../utils/backup'
 
 const BibliotecaContext = createContext(null)
 
@@ -26,13 +27,26 @@ const turmasIniciais = [
     '3 EJA'
 ]
 
-function carregarDados(chave, dadosIniciais) {
+// Remove itens vazios ({}) que versões anteriores gravavam como dado inicial.
+function removerItensVazios(lista) {
+    if (!Array.isArray(lista)) return lista
+
+    return lista.filter(item =>
+        item &&
+        typeof item === 'object' &&
+        Object.keys(item).length > 0
+    )
+}
+
+function carregarDados(chave, dadosIniciais, limparVazios = false) {
     try {
         const dadosSalvos = localStorage.getItem(chave)
 
-        return dadosSalvos
-            ? JSON.parse(dadosSalvos)
-            : dadosIniciais
+        if (!dadosSalvos) return dadosIniciais
+
+        const dados = JSON.parse(dadosSalvos)
+
+        return limparVazios ? removerItensVazios(dados) : dados
     } catch (erro) {
         console.error(`Erro ao carregar ${chave}:`, erro)
         return dadosIniciais
@@ -41,15 +55,15 @@ function carregarDados(chave, dadosIniciais) {
 
 export function BibliotecaProvider({ children }) {
     const [livros, setLivros] = useState(
-        () => carregarDados('perastrolib_livros', livrosIniciais)
+        () => carregarDados('perastrolib_livros', livrosIniciais, true)
     )
 
     const [pessoas, setPessoas] = useState(
-        () => carregarDados('perastrolib_pessoas', pessoasIniciais)
+        () => carregarDados('perastrolib_pessoas', pessoasIniciais, true)
     )
 
     const [registros, setRegistros] = useState(
-        () => carregarDados('perastrolib_registros', registrosIniciais)
+        () => carregarDados('perastrolib_registros', registrosIniciais, true)
     )
 
     const [categorias, setCategorias] = useState(
@@ -104,6 +118,19 @@ export function BibliotecaProvider({ children }) {
         localStorage.setItem('perastrolib_turmas', JSON.stringify(turmas))
     }, [turmas])
 
+    // Restaura um backup já validado: grava no armazenamento com
+    // reversão em caso de falha e só então atualiza o estado.
+    function restaurarDados(dados) {
+        restaurarNoArmazenamento(dados)
+
+        setLivros(dados.livros)
+        setPessoas(dados.pessoas)
+        setRegistros(dados.registros)
+        setCategorias(dados.categorias)
+        setConfig(dados.config)
+        setTurmas(dados.turmas)
+    }
+
     return (
         <BibliotecaContext.Provider
             value={{
@@ -118,7 +145,8 @@ export function BibliotecaProvider({ children }) {
                 config,
                 setConfig,
                 turmas,
-                setTurmas
+                setTurmas,
+                restaurarDados
             }}
         >
             {children}

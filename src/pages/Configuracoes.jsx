@@ -1,6 +1,12 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useBiblioteca } from '../context/BibliotecaContext'
 import '../styles/configuracoes.css'
+import {
+    exportarArquivo,
+    nomeArquivoBackup,
+    serializarBackup,
+    validarBackup
+} from '../utils/backup'
 
 function Configuracoes() {
     const {
@@ -11,7 +17,10 @@ function Configuracoes() {
         turmas,
         setTurmas,
         pessoas,
-        setPessoas
+        setPessoas,
+        registros,
+        categorias,
+        restaurarDados
     } = useBiblioteca()
 
     const [nomeEscola, setNomeEscola] = useState(
@@ -21,6 +30,112 @@ function Configuracoes() {
     const [novaTurma, setNovaTurma] = useState('')
     const [editando, setEditando] = useState(null)
     const [nomeEdicao, setNomeEdicao] = useState('')
+    const [processandoBackup, setProcessandoBackup] = useState(false)
+    const campoArquivoRef = useRef(null)
+
+    async function exportarBackup() {
+        try {
+            const texto = serializarBackup({
+                livros,
+                pessoas,
+                registros,
+                categorias,
+                config,
+                turmas
+            })
+
+            const resultado = await exportarArquivo(texto, nomeArquivoBackup())
+
+            if (resultado?.cancelado) return
+
+            if (!resultado?.ok) {
+                alert(resultado?.erro || 'Não foi possível exportar o backup.')
+                return
+            }
+
+            alert('Backup exportado com sucesso!')
+        } catch (erro) {
+            console.error(erro)
+            alert('Não foi possível exportar o backup.')
+        }
+    }
+
+    // Valida primeiro, confirma depois e só então substitui os dados.
+    function processarTextoDoBackup(texto) {
+        const resultado = validarBackup(texto)
+
+        if (!resultado.ok) {
+            alert(`Backup inválido: ${resultado.erro}\n\nNenhum dado foi alterado.`)
+            return
+        }
+
+        const { resumo, dados } = resultado
+
+        const confirmar = window.confirm(
+            `Importar backup de "${resumo.instituicao}"?\n\n` +
+            `Livros: ${resumo.livros}\n` +
+            `Pessoas: ${resumo.pessoas}\n` +
+            `Registros: ${resumo.registros}\n\n` +
+            'ATENÇÃO: todos os dados atuais deste computador serão ' +
+            'substituídos pelos dados do backup. Esta ação não pode ser desfeita.'
+        )
+
+        if (!confirmar) return
+
+        try {
+            restaurarDados(dados)
+            setNomeEscola(dados.config.nomeEscola)
+            alert('Backup restaurado com sucesso!')
+        } catch (erro) {
+            console.error(erro)
+            alert(
+                'Não foi possível restaurar o backup. ' +
+                'Seus dados anteriores foram mantidos.'
+            )
+        }
+    }
+
+    async function importarBackup() {
+        if (processandoBackup) return
+
+        if (window.perastroDesktop?.importarBackup) {
+            setProcessandoBackup(true)
+
+            try {
+                const resultado = await window.perastroDesktop.importarBackup()
+
+                if (resultado?.cancelado) return
+
+                if (!resultado?.ok) {
+                    alert(resultado?.erro || 'Não foi possível ler o arquivo.')
+                    return
+                }
+
+                processarTextoDoBackup(resultado.conteudo)
+            } finally {
+                setProcessandoBackup(false)
+            }
+
+            return
+        }
+
+        campoArquivoRef.current?.click()
+    }
+
+    async function aoEscolherArquivo(evento) {
+        const arquivo = evento.target.files?.[0]
+
+        evento.target.value = ''
+
+        if (!arquivo) return
+
+        try {
+            processarTextoDoBackup(await arquivo.text())
+        } catch (erro) {
+            console.error(erro)
+            alert('Não foi possível ler o arquivo selecionado.')
+        }
+    }
 
     function salvarEscola(evento) {
         evento.preventDefault()
@@ -339,6 +454,50 @@ function Configuracoes() {
                             Nenhuma turma cadastrada.
                         </p>
                     )}
+                </div>
+            </section>
+
+            <section className="configuracoes-card">
+                <h2>Backup e restauração</h2>
+
+                <p>
+                    <strong>Exportar</strong> cria uma cópia de segurança
+                    de todos os dados da biblioteca: livros, pessoas,
+                    registros, categorias, turmas e configurações.
+                </p>
+
+                <p>
+                    <strong>Importar</strong> restaura os dados a partir
+                    de um backup. A importação substitui os dados atuais
+                    deste computador.
+                </p>
+
+                <p>
+                    O arquivo JSON pode ser levado para outro computador
+                    com o PerastroLib instalado. Guarde-o em local seguro:
+                    ele contém dados pessoais dos leitores.
+                </p>
+
+                <div className="configuracoes-backup-acoes">
+                    <button type="button" onClick={exportarBackup}>
+                        Exportar backup
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={importarBackup}
+                        disabled={processandoBackup}
+                    >
+                        Importar backup
+                    </button>
+
+                    <input
+                        ref={campoArquivoRef}
+                        type="file"
+                        accept=".json,application/json"
+                        onChange={aoEscolherArquivo}
+                        hidden
+                    />
                 </div>
             </section>
         </main>

@@ -54,7 +54,7 @@ function Emprestimo() {
     const dataLimite = formatarData(limite)
 
     const pessoasFiltradas = pessoas.filter(pessoa =>
-    pessoa.nome.toLowerCase().includes(pesquisa.toLowerCase()) ||
+    (pessoa.nome || '').toLowerCase().includes(pesquisa.toLowerCase()) ||
     (pessoa.matricula || '').toLowerCase().includes(pesquisa.toLowerCase()))
 
     function calcularIdade(dataNascimento, dataReferencia) {

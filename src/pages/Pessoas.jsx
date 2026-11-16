@@ -25,7 +25,7 @@ function Pessoas(){
     function salvarEdicao(evento) {
         evento.preventDefault()
 
-        if (!pessoaEditando.nome.trim()) {
+        if (!(pessoaEditando.nome || '').trim()) {
             alert('O nome é obrigatório.')
             return
         }
@@ -99,7 +99,7 @@ function Pessoas(){
         
     const pessoasFiltradas = pessoas.filter((pessoa) => {
     const correspondePesquisa =
-        pessoa.nome.toLowerCase().includes(pesquisa.toLowerCase()) ||
+        (pessoa.nome || '').toLowerCase().includes(pesquisa.toLowerCase()) ||
         (pessoa.matricula || '').toLowerCase().includes(pesquisa.toLowerCase())
 
     const correspondeTipo =
@@ -172,7 +172,7 @@ function Pessoas(){
                     pessoasFiltradas.map((pessoa) => (
                     <article className='pessoa-card' key={pessoa.id}>
                     <div className='pessoa-avatar'>
-                        {pessoa.nome.charAt(0).toUpperCase()}
+                        {(pessoa.nome || '?').charAt(0).toUpperCase()}
                         </div>
                         
                         <div className='pessoa-dados'>
