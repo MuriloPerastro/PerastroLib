@@ -38,7 +38,9 @@ config.json
 .DS_Store
 Thumbs.db
 desktop.ini
-
+package-backup.json
+package-lock-backup.json
+teste-backup.mjs
 package.zip
 # IDEs e Ferramentas de Desenvolvimento
 .idea/
