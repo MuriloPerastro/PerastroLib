@@ -6,6 +6,7 @@
 
 <p align="center">
 
+<a href="../assets/gifprauso.gif">
 
 <p align="center">
   <a href="https://github.com/MuriloPerastro/PerastroLib/releases/latest"><strong>⬇️ Baixar para Windows</strong></a>
