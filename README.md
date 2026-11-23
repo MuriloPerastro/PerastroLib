@@ -5,8 +5,7 @@
 <h3 align="center">Gestão de bibliotecas escolares, simples, gratuita e offline</h3>
 
 <p align="center">
-  <img src="public/assets/GifParaUso.gif" alt="Demonstração do PerastroLib" width="850"/>
-</p>
+
 
 <p align="center">
   <a href="https://github.com/MuriloPerastro/PerastroLib/releases/latest"><strong>⬇️ Baixar para Windows</strong></a>
